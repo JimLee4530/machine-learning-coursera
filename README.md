@@ -14,3 +14,17 @@ cost function and gradient
 作业要求我们算出J和梯度Gradient,我一直以为是算迭代后的最终J和theta，对其进行自行迭代。最后发现J是NaN。看了pdf的指导，发现后面要求我们使用fminunc函数，上课时讲到的新方法来算J和theta，所以对原来的代码进行修改，仅根据公式算出梯度和J的算法。
 1，发现自己的英文阅读能力有待提高。
 2，需要在看下关于fminunc那集
+
+plotDescisionBoundary
+
+% Only need 2 points to define a line, so choose two endpoints
+
+plot_x = [min(X(:,2))-2,  max(X(:,2))+2];
+
+% Calculate the decision boundary line
+
+plot_y = (-1./theta(3)).*(theta(2).*plot_x + theta(1));
+
+以上两行代码的目的是画出决策边界，plot_x取的是x2中最大和最小的值加2.而plot_y画的其实不是y，而是x2，y是用来标记(x1,x2)点的类型的。
+我们可以从 【θ1+ θ2×x1 + θ3×x2 = 0】得出来。那么问题来了，为什么会从这个式子中得出x2的值呢，为什么要等于0呢？我的理解是，在逻辑回归时，我们h小于0.5的判定为0，大于0.5的判定为1，h=-1/(1+exp(-θ×x)），当θ×x等于0时，h正好为0.5，那么正好是y分类的决策边界。
+
