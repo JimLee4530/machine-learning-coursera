@@ -41,7 +41,9 @@ ex3_Part1:loading and visualizing data
 %Randomly select 100 data points to display
 
 rand_indices = randperm(m);% 得到一个1到m随机排列的1×m的行列式
+
 sel = X(rand_indices(1:100),:);% 因为rand_indices(1:100)是1:m随机的100个数，所以sel从X中随机取出100个训练样本。
+
 displayData(sel);%调用displayData()函数，画出样本.
 
 
