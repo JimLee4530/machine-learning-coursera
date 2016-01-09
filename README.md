@@ -1,6 +1,28 @@
 # machine-learning-coursera
 machine-learning-homework-coursera
 
+P.S.：在submit的时候，可能会遇到以下反馈，提示你提交失败。
+
+!! Submission failed: unexpected error: urlread: HTTP response code said error
+
+!! Please try again later.
+
+以下是解决方法：
+
+It seems that the conversion from ASCII to the hexadecimal escape the jsonlib uses is not working properly anymore in Octave 4.0. You can get it fixed by replacing
+
+str=[str str0(pos0(i)+1:pos(i)-1) sprintf('_0x%X_',str0(pos(i)))];
+by
+
+str=[str str0(pos0(i)+1:pos(i)-1) sprintf('_0x%X_',toascii(str0(pos(i))))];
+and
+
+str=sprintf('x0x%X_%s',char(str(1)),str(2:end));
+by
+
+str=sprintf('x0x%X_%s',toascii(str(1)),str(2:end));
+in loadjson.m and makeValidFieldName.m
+
 ===============ex1=================
 
 在course上学习机器学习，第一次实验时关于线性回归，较为基础。做题时曾卡在Gradient descent for multiple variables，因为是多特征量
@@ -47,7 +69,13 @@ sel = X(rand_indices(1:100),:);% 因为rand_indices(1:100)是1:m随机的100个�
 displayData(sel);%调用displayData()函数，画出样本.
 
 
+IrCostFunction
 
+写出代码并不难，难在你要清楚为什么这样写代码，ex3的pdf中Vectorizing Logistic Regression 那小节的矩阵公式的推导是核心，要理解了才能写出了不需要循环的代码，提高运行效率。
+
+predictOneVsAll
+
+One-Vs-All中sigmoid函数的含义是用数学语言表达为P(y=i|X;θ).
 
 
 
