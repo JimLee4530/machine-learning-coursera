@@ -77,6 +77,41 @@ predictOneVsAll
 
 One-Vs-All中sigmoid函数的含义是用数学语言表达为P(y=i|X;θ).
 
+=================ex4===================
 
+nnCostFunction
+
+在写J的时候卡在了，关于y的赋值的地方，我们用的是逻辑回归的CostFunction，那么y的值只可能是0或1，而从ex4data1.mat中我们得到的y是5000个10～1中的随机数，并不是0或1，所以需要我们将每个样本的y转化为0或1，再进行CostFunction的计算。具体看以下循环代码段：
+
+for k = 1:num_labels
+
+	y_k = (y == k);%将所有y是k的样本，转化为1，其他为0.
+
+	a3_k = a3(:,k);%获得所有关于k的hθ的值
+
+	J_K =1/m * sum(-y_k .* log(a3(:,k)) - (1 - y_k) .* log(1 - a3(:,k)));%利用y(k)和hθ(k)算出K值的CostFunction。
+
+	J = J + J_K;%将所有的k的CostFunction加到一起
+
+end
+
+	其实在ex3中，就用到了类似y == k，将y样本转化为1或0的方式。
+
+for i = 1:num_labels;
+
+	initial_theta = zeros(n+1,1);
+
+	options = optimset('GradObj','on','MaxIter',400);
+
+	[theta] = fmincg(@(t)(lrCostFunction(t,X,(y == i),lambda)),initial_theta,options);
+	
+	all_theta(i,:)=theta';
+end
+
+以上代码中，
+
+[theta] = fmincg(@(t)(lrCostFunction(t,X,(y == i),lambda)),initial_theta,options);
+
+我们用 y == i，将y的样本转化为1或0.
 
 
